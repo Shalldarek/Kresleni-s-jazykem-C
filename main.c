@@ -24,30 +24,41 @@ void schody(int steps) {
     }
 }
 
-//nedokoncene
+//Kvitko se zelenym listkem vlevo
 void kvitko(int height, int width) {
+    int stred = width / 2;
+
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < width; j++) {
-            if (i == width/2 && j == width/2) {
+            if (i == stred && j == stred) {
+                set_yellow_color(); 
+                draw_pixel();
+            } else if ((i - stred) <= 1 && (j - stred) <= 1) {
+                set_red_color(); 
+                draw_pixel();
             } else {
-                set_red_color();    
+                move_right();
+                continue;
             }
-            draw_pixel();
             move_right();
         }
         move_down();
-        move_left();
-        for (int k = 0; k < width-1; k++) {
-            move_left();
-        }
+        for (int k = 0; k < width; k++) move_left();
     }
 
+    move_to(width + 1, stred + 1);
     for (int i = 0; i < height; i++) {
-        move_right();
         set_green_color();
         draw_pixel();
+
+        if (i == height / 2) {
+            move_left();
+            set_green_color();
+            draw_pixel();
+            move_right();
+        }
+
         move_down();
-        move_left();
     }
 }
 
@@ -66,7 +77,7 @@ int main() {
     schody(5);
   }
   else if (drawing == 2) {
-    kvitko(3, 3);
+    kvitko(4, 3);
   }
   else {
     printf("To je zatim vse");
