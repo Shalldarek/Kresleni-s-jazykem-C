@@ -24,11 +24,9 @@ void schody(int steps) {
     }
 }
 
-//Kvitko se zelenym listkem vlevo
 void kvitko(int height, int width) {
     int stred = width / 2;
-
-    for (int i = 0; i < width; i++) {
+     for (int i = 0; i < width; i++) {
         for (int j = 0; j < width; j++) {
             if (i == stred && j == stred) {
                 set_yellow_color(); 
@@ -46,23 +44,47 @@ void kvitko(int height, int width) {
         for (int k = 0; k < width; k++) move_left();
     }
 
-    move_to(width + 1, stred + 1);
     for (int i = 0; i < height; i++) {
+        move_right();
         set_green_color();
         draw_pixel();
-
-        if (i == height / 2) {
-            move_left();
-            set_green_color();
-            draw_pixel();
-            move_right();
-        }
-
         move_down();
+        move_left();
     }
+
+    move_right();
+    //move_left();
+    set_green_color();
+    draw_pixel();
+    move_down();
+    move_down();
+    move_down();
 }
 
+void louka(int height, int width) {
+    int velikost_kvetu = 3;
+    int delka_stonku = 3;
+    int vodorovna_mezera = 2;
+    int svisla_mezera = 1;
+    int zacatek_radku = 1;
+    int zacatek_sloupce = 1;
 
+    for (int r = 0; r < height; r++) {
+        for (int c = 0; c < width; c++) {
+            int radek = zacatek_radku + r * (velikost_kvetu + delka_stonku + svisla_mezera);
+            int sloupec = zacatek_sloupce + c * (velikost_kvetu + vodorovna_mezera);
+
+            move_to(radek, sloupec);
+            kvitko(delka_stonku, velikost_kvetu);
+        }
+    }
+
+    move_to(zacatek_radku + height * (velikost_kvetu + delka_stonku + svisla_mezera), 1);
+}
+
+void animace() {
+
+}
 
 int main() {
   clear_screen();
@@ -77,7 +99,10 @@ int main() {
     schody(5);
   }
   else if (drawing == 2) {
-    kvitko(4, 3);
+    kvitko(3, 3);
+  }
+  else if (drawing == 3) {
+    louka(2, 3);
   }
   else {
     printf("To je zatim vse");
