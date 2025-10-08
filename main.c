@@ -6,10 +6,36 @@
 #define MIN_SLOUPEC 10      
 #define POCET_SNIMKU 300 
 
-void prerusovana_cara(int delka) {
-    for (int i = 0; i < delka * 2; i++) {
+void prerusovana_cara(int cislo) {
+    for (int i = 0; i < cislo * 2; i++) {
         if (i % 2 == 0) {
             set_blue_color();  
+            draw_pixel();
+        } else {
+            move_right();
+        }
+        move_right();
+    }
+
+    move_down();
+    move_left();
+
+    for (int i = 0; i < cislo * 2; i++) {
+        if (i % 2 == 0) {
+            set_green_color();  
+            draw_pixel();
+        } else {
+            move_right();
+        }
+        move_right();
+    }
+
+    move_down();
+    move_left();
+
+    for (int i = 0; i < cislo * 2; i++) {
+        if (i % 2 == 0) {
+            set_red_color();  
             draw_pixel();
         } else {
             move_right();
@@ -20,11 +46,15 @@ void prerusovana_cara(int delka) {
 
 void schody(int kroky) {
     for (int i = 0; i < kroky; i++) {
-        set_red_color();
+        if (i % 2 == 0) {
+            set_blue_color();
+        } else {
+            set_red_color();
+        }
+        
         draw_pixel();
         move_right();
-
-        set_green_color();
+        set_green_color(); 
         move_down();
     }
 }
@@ -143,7 +173,7 @@ int main() {
     prerusovana_cara(10); 
   }
   else if (drawing == 1) {
-    schody(5);
+    schody(10);
   }
   else if (drawing == 2) {
     kvitko(2, 3);
@@ -151,7 +181,7 @@ int main() {
   else if (drawing == 3) {
     louka(2, 3);
   }
-  else if (drawing = 4) {
+  else if (drawing == 4) {
     animace();
 
     end_drawing();
